@@ -1,0 +1,128 @@
+use "string"
+
+PI = 3.1415926
+E = 2.718281
+
+fn factorial(n){
+    fact = 1
+    for i = 2 to n+1{
+        fact = fact*i
+
+
+    }
+    return fact
+}
+
+fn sort(list){
+    n = len(list)
+    for i = 0 to n - 1{
+        min_index = i
+        for j = i + 1 to n{
+            if list[j] < list[min_index]{
+                min_index = j
+            }
+        }
+        temp = list[i]
+        list[i] = list[min_index]
+        list[min_index] = temp
+    }
+    return list
+}
+
+fn pow(n, p){
+    result = 1
+    for i = 0 to p{
+        result = result * n
+    }
+    return result
+}
+
+fn abs(n){
+    if n < 0{
+        return -n
+    }
+    return n
+}
+
+fn sqrt(n){
+    last_guess= n/2.0
+    while true{
+        guess = (last_guess + n/last_guess)/2
+        if abs(guess - last_guess) < 0.000001{
+            return guess
+        }
+        last_guess= guess
+    }
+}
+
+fn round(n){
+    nStr = str(flt(n))
+    splitNum = split(nStr, ".")
+    wholenum = int(splitNum[0])
+    dec = int(splitNum[1])
+    if dec == 5{
+        return wholenum+1
+    elif dec > 5
+        return wholenum+1
+    elif dec < 5
+        return wholenum
+    }
+}
+
+fn mod(a, b){
+    return a - b * floor(a / b)
+}
+
+fn roundto(float, value){
+    fstring = str(float)
+    splitNum = split(fstring, ".")
+    wholenum = splitNum[0]
+    dec = chararray(splitNum[1])
+    roundedto = [wholenum, "."]
+    if value > len(dec){
+        return float
+    elif value == 0
+        return int(wholenum)
+    else
+        for i = 0 to value{
+            append(roundedto, dec[i])
+        }
+        roundedto = join(roundedto)
+        return flt(roundedto)
+    }
+}
+
+    
+
+fn makeint(float){
+    return round(float)
+}
+
+fn iter(n){
+    iterlist = []
+    for i = 0 to n{
+        append(iterlist, i)
+    }
+    return iterlist
+}
+
+fn ceil(n){
+    nStr = str(flt(n))
+    splitNum = split(nStr, ".")
+    wholenum = int(splitNum[0])
+    return wholenum+1
+}    
+
+
+fn floor(n){
+    nStr = str(flt(n))
+    splitNum = split(nStr, ".")
+    wholenum = int(splitNum[0])
+    return wholenum-1
+}
+
+fn percent(wholenum, value){
+    wholenum = flt(wholenum)
+    value = flt(value)
+    return (value/wholenum)*100
+}
