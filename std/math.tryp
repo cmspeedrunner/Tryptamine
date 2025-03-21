@@ -1,4 +1,4 @@
-use "string"
+use "std/string"
 
 PI = 3.1415926
 E = 2.718281

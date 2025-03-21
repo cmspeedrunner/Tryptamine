@@ -1,5 +1,5 @@
-use "colors"
-use "string"
+use "std/colors"
+use "std/string"
 
 fn source(file){
     f = openFile(file)

@@ -1,6 +1,6 @@
-use "string"
-use "list"
-use "math"
+use "std/string"
+use "std/list"
+use "std/math"
 
 fn typeof(value){
 

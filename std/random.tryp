@@ -1,4 +1,4 @@
-use "math"
+use "std/math"
 RAND_MAX = 2147483647
 
 fn random(){

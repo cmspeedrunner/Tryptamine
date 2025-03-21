@@ -1,0 +1,3 @@
+fn latestV(){
+    system("curl -s https://raw.githubusercontent.com/cmspeedrunner/Tryptamine/main/src/interpreter.py | head -n 1")
+}

@@ -6,6 +6,12 @@ fn get(url, tofile = ""){
     }
 }
 
+fn getret(url){
+
+    return system("curl -s "+url)
+   
+}
+
 fn post(url, data, headers = []){
     cmd = "curl -s -X POST -d " + str(data) + " " + url
     for header in headers {

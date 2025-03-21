@@ -1,6 +1,7 @@
-use "string"
-use "list"
-use "types"
+use "std/string"
+use "std/list"
+use "std/types"
+
 
 fn systemout(command){
     println(system(command))
