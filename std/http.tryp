@@ -12,6 +12,8 @@ fn getret(url){
    
 }
 
+
+
 fn post(url, data, headers = []){
     cmd = "curl -s -X POST -d " + str(data) + " " + url
     for header in headers {
@@ -63,3 +65,4 @@ fn timeout(url, seconds){
 fn followredirects(url){
     return system("curl -s -L " + url)
 }
+

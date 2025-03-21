@@ -1,6 +1,6 @@
-use "std/string"
-use "std/list"
-use "std/types"
+use "string"
+use "list"
+use "types"
 
 
 fn systemout(command){
@@ -26,6 +26,7 @@ fn start(file){
     system("start "+str(file))
     return 0
 }
+
 
 fn getuser(){
     return system("whoami")
@@ -74,6 +75,16 @@ fn getload(){
 fn onfail(fail, run){
     fail = system(fail+" || "+run)
     return fail
+}
+
+fn fileexists(file){
+    statement = "if exist '"+file+"' (echo 1) else (echo 0)"
+    return system(statement)
+}
+
+fn exists(pathtofile){
+    statement = "if exist "+pathtofile+" (echo 1) else (echo 0)"
+    return system(statement)
 }
 
 fn onpass(valid, run){
