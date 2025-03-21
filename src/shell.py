@@ -25,7 +25,7 @@ def main():
 		exit()
 	
 	while True:
-		text = input('\u001B[36mTryp>\033[0m')
+		text = input('\u001B[36mtr>\033[0m')
 		if text.strip() == "": continue
 
 		else:
