@@ -1,21 +1,24 @@
 use "std/http"
 use "std/system"
 use "std/string"
+use "std/tryptamine"
 packageList = []
 vers = trypV
-latest = 
+latest = latestV()
 path = cwd+"\\std"
 apiSource = "https://api.github.com/repos/cmspeedrunner/Tryptamine/contents/std"
 repoSource = "https://github.com/cmspeedrunner/Tryptamine/tree/main/std"
 
+
 try{openFile("synapse.json", "r"):jsonexists = true}
 catch as f{jsonexists = false
 
-if jsonexists = false{
-    print(0)
+
+if jsonexists == false{
+    
     jsonstd = stack(getret("https://api.github.com/repos/cmspeedrunner/Tryptamine/contents/std > synapse.json"))
 
-elif jsonexists = true
+elif jsonexists == true
     jsonf = openFile("synapse.json", "r")
     jsoncontent = readFile(jsonf, 50000)
     jsonstd = stack(jsoncontent)
