@@ -8,8 +8,8 @@ system("")
 pathDest = "lib"
 packageList = []
 vers = trypV
-packageRepo = "https://github.com/cmspeedrunner/synapse/tree/main"
-rawAccessRepo = "https://raw.githubusercontent.com/cmspeedrunner/synapse/main/"
+packageRepo = "https://github.com/cmspeedrunner/axon/tree/main"
+rawAccessRepo = "https://raw.githubusercontent.com/cmspeedrunner/axon/main/"
 
 
 fn diffuseIn(url, name, currentfile){
@@ -33,34 +33,34 @@ else
 }
 
 if command == "-help"{
-    println(green("Synapse Package Manager"))
+    println(green("Axon Package Manager"))
     println("-------------------------\nValid Commands:")
-    println("   synapse install <package>   -> "+cyan("Installs <package>"))
-    println("   synapse -help               -> "+cyan("Shows command list"))
-    println("   synapse update <package>    -> "+cyan("If you have <package> it updates it, if you don't, it installs it"))
-    println("   synapse -v                  -> "+cyan("Shows Tryptamine version"))
-    println("   synapse -latest             -> "+cyan("Shows Latest Tryptamine version"))
-    println("   synapse -path               -> "+cyan("Shows the destination path for packages"))
-    println("   synapse -src                -> "+cyan("Shows the github repo packages are sourced from"))
-    println("   synapse uninstall <package> -> "+cyan("Uninstalls package"))
+    println("   axon install <package>   -> "+cyan("Installs <package>"))
+    println("   axon -help               -> "+cyan("Shows command list"))
+    println("   axon update <package>    -> "+cyan("If you have <package> it updates it, if you don't, it installs it"))
+    println("   axon -v                  -> "+cyan("Shows Tryptamine version"))
+    println("   axon -latest             -> "+cyan("Shows Latest Tryptamine version"))
+    println("   axon -path               -> "+cyan("Shows the destination path for packages"))
+    println("   axon -src                -> "+cyan("Shows the github repo packages are sourced from"))
+    println("   axon uninstall <package> -> "+cyan("Uninstalls package"))
 
 
 elif command == "-packs"
     println("Tryptamine packages:\n")
     for pack in packageList{
-        println("   "+rmSuffix(pack, ".tryp"))
+        println("   "+rmSuffix(pack, ".tr"))
     }
 elif command == "-v"
-    println("Tryptamine/Synapse Version:\n"+vers)
+    println("Tryptamine/Axon Version:\n"+vers)
 
 elif command == "-path"
-    println("Synapse Install path:\n    "+path)
+    println("Axon Install path:\n    "+path)
 elif command == "-src"
-    println("Synapse Package Repository:\n  "+packageRepo+"\nRaw Access URL:\n  "+rawAccessRepo)
+    println("Axon Package Repository:\n  "+packageRepo+"\nRaw Access URL:\n  "+rawAccessRepo)
 elif command == "install" or command == "update"
     if len(argv) == 2{
         println("Install usage:")
-        println("    synapse install <package>")
+        println("    axon install <package>")
         
     elif len(argv) == 3
         packagename = argv[2]
