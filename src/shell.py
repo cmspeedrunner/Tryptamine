@@ -6,7 +6,7 @@ header = f"""\u001B[36m
  ║ ╠╦╝╚╦╝╠═╝ ║ ╠═╣║║║║║║║║╣ 
  ╩ ╩╚═ ╩ ╩   ╩ ╩ ╩╩ ╩╩╝╚╝╚═╝\u001B[35m
 ╔────────────────────────╗  
-│\u001B[32mV{interpreter.VERSION}\u001B[35m                   │  
+│\u001B[32m{interpreter.VERSION}\u001B[35m                  │  
 │\u001B[32mMade by CM\u001B[35m              │  
 │with credit to \u001B[32mangelcaru\u001B[35m│  
 ╚────────────────────────╝  """

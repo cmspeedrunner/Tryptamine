@@ -1,41 +1,30 @@
-use "std/http"
-use "std/system"
-use "std/string"
-use "std/tryptamine"
+use "http"
+use "system"
+use "string"
+use "tryptamine"
+use "colors"
+system("")
+
+pathDest = "lib"
 packageList = []
 vers = trypV
-latest = latestV()
-path = cwd+"\\std"
-apiSource = "https://api.github.com/repos/cmspeedrunner/Tryptamine/contents/std"
-repoSource = "https://github.com/cmspeedrunner/Tryptamine/tree/main/std"
+packageRepo = "https://github.com/cmspeedrunner/synapse/tree/main"
+rawAccessRepo = "https://raw.githubusercontent.com/cmspeedrunner/synapse/main/"
 
 
-try{openFile("synapse.json", "r"):jsonexists = true}
-catch as f{jsonexists = false
-
-
-if jsonexists == false{
-    
-    jsonstd = stack(getret("https://api.github.com/repos/cmspeedrunner/Tryptamine/contents/std > synapse.json"))
-
-elif jsonexists == true
-    jsonf = openFile("synapse.json", "r")
-    jsoncontent = readFile(jsonf, 50000)
-    jsonstd = stack(jsoncontent)
+fn diffuseIn(url, name, currentfile){
+    system("curl -s "+url +" -o lib/"+name+"/"+currentfile)
 }
 
-
-
-for line in jsonstd{
-    line = clean(line)
-    if startswith(line, "\"name\":"){
-        lib = split(line, ":")
-        lib = rmSuffix(rmPrefix(clean(lib[1]), "\""), "\",")
-        append(packageList, lib)
+fn bindReceptor(url, name){
+    ligand = "curl -s "+url
+    packagefiles = system(ligand)
+    packagefiles = stack(packagefiles)
+    for file in packagefiles{
+        url = rawAccessRepo+packagename+"/"+clean(file)
+        diffuseIn(url, name, file)
     }
 }
-
-
 
 if len(argv) < 2{
     command = "-help"
@@ -44,19 +33,16 @@ else
 }
 
 if command == "-help"{
-    println("Synapse Package Manager")
+    println(green("Synapse Package Manager"))
     println("-------------------------\nValid Commands:")
-    println("   synapse install <package>   ->  Installs <package>")
-    println("   synapse -help               ->  Shows command list")
-    println("   synapse -packs              ->  Shows all packages")
-    println("   synapse v <package>         ->  Shows package version")
-    println("   synapse update              ->  Updates synapse.json file")
-    println("   synapse update <package>    ->  If you have <package> it updates it, if you don't, it installs it")
-    println("   synapse -v                  ->  Shows Tryptamine version")
-    println("   synapse -path               ->  Shows the destination path for packages")
-    println("   synapse -src                ->  Shows the github repo folder packages are sourced from")
-    println("   synapse -j                  ->  Shows the path to the local json file where packages are checked")
-    println("   synapse path <path>         ->  Change destination path")
+    println("   synapse install <package>   -> "+cyan("Installs <package>"))
+    println("   synapse -help               -> "+cyan("Shows command list"))
+    println("   synapse update <package>    -> "+cyan("If you have <package> it updates it, if you don't, it installs it"))
+    println("   synapse -v                  -> "+cyan("Shows Tryptamine version"))
+    println("   synapse -latest             -> "+cyan("Shows Latest Tryptamine version"))
+    println("   synapse -path               -> "+cyan("Shows the destination path for packages"))
+    println("   synapse -src                -> "+cyan("Shows the github repo packages are sourced from"))
+    println("   synapse uninstall <package> -> "+cyan("Uninstalls package"))
 
 
 elif command == "-packs"
@@ -65,33 +51,37 @@ elif command == "-packs"
         println("   "+rmSuffix(pack, ".tryp"))
     }
 elif command == "-v"
-    println("Tryptamine Version:\n"+vers)
+    println("Tryptamine/Synapse Version:\n"+vers)
 
 elif command == "-path"
     println("Synapse Install path:\n    "+path)
 elif command == "-src"
-    println("Synapse source URL:\n  API Source: "+apiSource+"\n  Repository Source: "+repoSource)
-elif command == "install"
-    println(len(argv))
-    if len(argv) < 2{
+    println("Synapse Package Repository:\n  "+packageRepo+"\nRaw Access URL:\n  "+rawAccessRepo)
+elif command == "install" or command == "update"
+    if len(argv) == 2{
         println("Install usage:")
         println("    synapse install <package>")
-        println("\nExample usage:")
-        println("   synapse install colors ")
+        
     elif len(argv) == 3
-        package = argv[2]
-        exists = false
-        for pack in packageList{
-            formattedPk = rmSuffix(pack, ".tryp")
-            if clean(formattedPk) == clean(package){
-                exists = true
-            }
+        packagename = argv[2]
+        location = rawAccessRepo+packagename+"/.files"
+        checkdir = int(system("dir lib >nul && echo 1 || echo 0"))
+        if checkdir == 0{
+            system("mkdir lib")
+            println("Folder lib could not be found so it was created.")
+            println("Make sure your src/path file has lib in it.")
         }
-        if exists == false{
-            println(0)
-        }
+        system("cd lib && mkdir "+packagename)
+        bindReceptor(location, packagename)
         
     }
+
+
+elif command == "-latest"
+    println(latestV())
+
+
+
 
 }
 

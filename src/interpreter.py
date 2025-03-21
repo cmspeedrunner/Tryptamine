@@ -44,16 +44,34 @@ from typing import *
 
 files = {}
 
-# Configurate the 'use' behaviour
 
-IMPORT_PATH_NAME = ".path"
-PARENT = os.getcwd()
 
-if not os.path.isfile(IMPORT_PATH_NAME):
-    IMPORT_PATHS = [os.getcwd()]
+usePathReference = "src/path"
+parent = os.getcwd()
+import_paths = []
+
+if not os.path.isfile(usePathReference):
+    with open(usePathReference, "w") as pathFile:
+        pathFile.write(os.getcwd() + "/std")
+    import_paths.append(os.getcwd() + "/std")
 else:
-    with open(IMPORT_PATH_NAME, "r") as f:
-        IMPORT_PATHS = list(f.readlines())
+    with open(usePathReference, "r+") as pathFile:
+        content = pathFile.read().strip()
+        
+        if not content:
+            pathFile.seek(0)  
+            pathFile.write(os.getcwd() + "/std")
+            import_paths.append(os.getcwd() + "/std")
+        elif "/std" not in content:
+            pathFile.seek(0)  
+            pathFile.write(os.getcwd() + "/std")
+            import_paths.append(os.getcwd() + "/std")
+        
+        
+        pathFile.seek(0)
+        pathbulk = pathFile.read().splitlines()
+        import_paths.extend(pathbulk)
+
 
 DIGITS = '0123456789'
 LETTERS = string.ascii_letters
@@ -3508,18 +3526,20 @@ class Interpreter:
         formatted = str(filename)
         code = None
         if "/" in formatted:
-            formatted = formatted.split("/")
-            lastarg = formatted[len(formatted)-1]
-            if "." not in lastarg:
-                filename.value = filename.value + ".tryp"
+            if formatted.endswith("/") == False:
+                formatted = formatted.split("/")
+                lastarg = formatted[len(formatted)-1]
+                if "." not in lastarg:
+                    filename.value = filename.value + ".tryp"
         else:
             if "." not in formatted:
                 filename.value = filename.value + ".tryp"
                 
 
-        for path in IMPORT_PATHS:
+        for path in import_paths:
             if path.startswith("."):
-                path = path.replace(".", PARENT)
+                path = path.replace(".", parent)
+             
                 
                 
             try:
@@ -3538,7 +3558,7 @@ class Interpreter:
         if code is None:
             return res.failure(RTError(
                 node.string_node.pos_start.copy(), node.string_node.pos_end.copy(),
-                f"Can't find file '{filepath}' in '{IMPORT_PATH_NAME}'. Please add the directory your file is into that file",
+                f"Can't find file '{filepath}' in '{usePathReference}'. Please add the directory your file is into that file",
                 context
             ))
 
