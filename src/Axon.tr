@@ -1,13 +1,13 @@
 use "http"
 use "system"
 use "string"
-use "tryptamine"
+use "tr"
 use "colors"
 system("")
 
 pathDest = "lib"
 packageList = []
-vers = trypV
+vers = _V
 packageRepo = "https://github.com/cmspeedrunner/axon/tree/main"
 rawAccessRepo = "https://raw.githubusercontent.com/cmspeedrunner/axon/main/"
 
