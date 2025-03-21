@@ -1,0 +1,18 @@
+use "math"
+RAND_MAX = 2147483647
+
+fn random(){
+    seed = split(time(), ".")
+    base = (1664525 * int(seed[1]) + 1013904223)
+    seed = mod(base, RAND_MAX)
+    if (seed / RAND_MAX) -1 < 0.1 {
+        return ((seed / RAND_MAX) -1) * 10
+    else
+        return ((seed / RAND_MAX) -1)
+    }
+}
+
+fn randrange(min, max, dec=0){
+    value = min + (random() * (max - min))
+    return roundto(value, dec)
+}

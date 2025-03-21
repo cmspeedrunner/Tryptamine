@@ -1,0 +1,63 @@
+use "string"
+use "list"
+use "math"
+
+fn typeof(value){
+
+    if isNum(value) {
+        if contains(str(value), "."){
+            return "flt"
+        else
+            return "int"
+        }
+
+    elif isStr(value) 
+        return "str"
+    
+
+    elif isList(value) 
+        return "list"
+    
+
+    elif isFn(value) 
+        return "function"
+
+    else
+        return "unknown"
+    }
+}
+
+fn typeto(value, type){
+    if type == "str" {
+        if typeof(value) == "list" {
+            value = flatten(value)
+        else
+            value = str(value)
+        }
+
+    elif type == "int" 
+        if typeof(value) == "list" {
+            value = int(flatten(value))
+        elif typeof(value) == "float" 
+            value = round(value)
+        else
+            value = int(value)
+        }
+
+    elif type == "flt" 
+        if typeof(value) == "list" {
+            value = flt(flatten(value))
+        else
+            value = int(value)
+        }
+    elif type == "list" 
+        value = list(value)
+        return value
+    else
+        return value
+
+    }
+    return value
+}
+
+
