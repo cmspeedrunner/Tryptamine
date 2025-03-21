@@ -1,3 +1,4 @@
+VERSION = "v0.1.0"
 #######################################
 # IMPORTS
 #######################################
@@ -57,6 +58,7 @@ else:
 DIGITS = '0123456789'
 LETTERS = string.ascii_letters
 VALID_IDENTIFIERS = LETTERS + DIGITS + "$_"
+
 
 #######################################
 # ERRORS
@@ -2323,6 +2325,7 @@ class String(Value):
     def __repr__(self):
         return f'"{self.value}"'
 String.cwd = String(os.getcwd())
+String.trypV = String(VERSION)
 
 class List(Value):
     def __init__(self, elements):
@@ -2888,7 +2891,7 @@ class BuiltInFunction(BaseFunction):
                     fake_pos, fake_pos,
                     f"{err.args[-1]}",
                     exec_ctx
-                ))
+                )) 
 
         fd = f.fileno()
         files[fd] = f
@@ -3755,6 +3758,7 @@ global_symbol_table.set("null", Number.null)
 global_symbol_table.set("false", Number.false)
 global_symbol_table.set("true", Number.true)
 global_symbol_table.set("cwd", String.cwd)
+global_symbol_table.set("trypV", String.trypV)
 
 global_symbol_table.set("argv", make_argv())
 global_symbol_table.set("println", BuiltInFunction.println)

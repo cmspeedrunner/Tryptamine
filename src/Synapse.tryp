@@ -1,0 +1,94 @@
+use "std/http"
+use "std/system"
+use "std/string"
+packageList = []
+vers = trypV
+latest = 
+path = cwd+"\\std"
+apiSource = "https://api.github.com/repos/cmspeedrunner/Tryptamine/contents/std"
+repoSource = "https://github.com/cmspeedrunner/Tryptamine/tree/main/std"
+
+try{openFile("synapse.json", "r"):jsonexists = true}
+catch as f{jsonexists = false
+
+if jsonexists = false{
+    print(0)
+    jsonstd = stack(getret("https://api.github.com/repos/cmspeedrunner/Tryptamine/contents/std > synapse.json"))
+
+elif jsonexists = true
+    jsonf = openFile("synapse.json", "r")
+    jsoncontent = readFile(jsonf, 50000)
+    jsonstd = stack(jsoncontent)
+}
+
+
+
+for line in jsonstd{
+    line = clean(line)
+    if startswith(line, "\"name\":"){
+        lib = split(line, ":")
+        lib = rmSuffix(rmPrefix(clean(lib[1]), "\""), "\",")
+        append(packageList, lib)
+    }
+}
+
+
+
+if len(argv) < 2{
+    command = "-help"
+else
+    command = argv[1]
+}
+
+if command == "-help"{
+    println("Synapse Package Manager")
+    println("-------------------------\nValid Commands:")
+    println("   synapse install <package>   ->  Installs <package>")
+    println("   synapse -help               ->  Shows command list")
+    println("   synapse -packs              ->  Shows all packages")
+    println("   synapse v <package>         ->  Shows package version")
+    println("   synapse update              ->  Updates synapse.json file")
+    println("   synapse update <package>    ->  If you have <package> it updates it, if you don't, it installs it")
+    println("   synapse -v                  ->  Shows Tryptamine version")
+    println("   synapse -path               ->  Shows the destination path for packages")
+    println("   synapse -src                ->  Shows the github repo folder packages are sourced from")
+    println("   synapse -j                  ->  Shows the path to the local json file where packages are checked")
+    println("   synapse path <path>         ->  Change destination path")
+
+
+elif command == "-packs"
+    println("Tryptamine packages:\n")
+    for pack in packageList{
+        println("   "+rmSuffix(pack, ".tryp"))
+    }
+elif command == "-v"
+    println("Tryptamine Version:\n"+vers)
+
+elif command == "-path"
+    println("Synapse Install path:\n    "+path)
+elif command == "-src"
+    println("Synapse source URL:\n  API Source: "+apiSource+"\n  Repository Source: "+repoSource)
+elif command == "install"
+    println(len(argv))
+    if len(argv) < 2{
+        println("Install usage:")
+        println("    synapse install <package>")
+        println("\nExample usage:")
+        println("   synapse install colors ")
+    elif len(argv) == 3
+        package = argv[2]
+        exists = false
+        for pack in packageList{
+            formattedPk = rmSuffix(pack, ".tryp")
+            if clean(formattedPk) == clean(package){
+                exists = true
+            }
+        }
+        if exists == false{
+            println(0)
+        }
+        
+    }
+
+}
+
