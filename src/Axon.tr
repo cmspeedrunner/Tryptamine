@@ -5,7 +5,8 @@ use "tr"
 use "colors"
 system("")
 
-pathDest = "lib"
+pathDest = "std"
+path = cwd+pathDest
 packageList = []
 vers = _V
 packageRepo = "https://github.com/cmspeedrunner/axon/tree/main"
@@ -13,7 +14,7 @@ rawAccessRepo = "https://raw.githubusercontent.com/cmspeedrunner/axon/main/"
 
 
 fn diffuseIn(url, name, currentfile){
-    system("curl -s "+url +" -o lib/"+name+"/"+currentfile)
+    system("curl -s "+url +" -o std/"+name+"/"+currentfile)
 }
 
 fn bindReceptor(url, name){
@@ -42,7 +43,6 @@ if command == "-help"{
     println("   axon -latest             -> "+cyan("Shows Latest Tryptamine version"))
     println("   axon -path               -> "+cyan("Shows the destination path for packages"))
     println("   axon -src                -> "+cyan("Shows the github repo packages are sourced from"))
-    println("   axon uninstall <package> -> "+cyan("Uninstalls package"))
 
 
 elif command == "-packs"
@@ -65,13 +65,8 @@ elif command == "install" or command == "update"
     elif len(argv) == 3
         packagename = argv[2]
         location = rawAccessRepo+packagename+"/.files"
-        checkdir = int(system("dir lib >nul && echo 1 || echo 0"))
-        if checkdir == 0{
-            system("mkdir lib")
-            println("Folder lib could not be found so it was created.")
-            println("Make sure your src/path file has lib in it.")
-        }
-        system("cd lib && mkdir "+packagename)
+       
+        system("cd std && mkdir "+packagename)
         bindReceptor(location, packagename)
         
     }
