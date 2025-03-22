@@ -17,7 +17,9 @@ except KeyboardInterrupt:
     exit()
 
 if error:
+    
     print("\033[31m" + error.as_string() + "\033[0m")  
+    
 elif result:
     if len(result.elements) == 1:
         print(repr(result.elements[0]))

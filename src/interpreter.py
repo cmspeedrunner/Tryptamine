@@ -6,24 +6,19 @@ VERSION = "v0.1.2"
 def string_with_arrows(text, pos_start, pos_end):
 	result = ''
 
-	# Calculate indices
 	idx_start = max(text.rfind('\n', 0, pos_start.idx), 0)
 	idx_end = text.find('\n', idx_start + 1)
 	if idx_end < 0: idx_end = len(text)
 	
-	# Generate each line#
 	line_count = pos_end.ln - pos_start.ln + 1
 	for i in range(line_count):
-		# Calculate line columns
 		line = text[idx_start:idx_end]
 		col_start = pos_start.col if i == 0 else 0
 		col_end = pos_end.col if i == line_count - 1 else len(line) - 1
 
-		# Append to result
 		result += line + '\n'
 		result += ' ' * col_start + '^' * (col_end - col_start)
 
-		# Re-calculate indices
 		idx_start = idx_end
 		idx_end = text.find('\n', idx_start + 1)
 		if idx_end < 0: idx_end = len(text)
@@ -35,7 +30,7 @@ import os
 import time
 import sys
 import datetime
-
+import subprocess
 from enum import Enum, auto
 from dataclasses import dataclass
 from typing import *
@@ -228,6 +223,37 @@ class InvalidSyntaxError(Error):
 class RTError(Error):
     def __init__(self, pos_start, pos_end, details, context):
         super().__init__(pos_start, pos_end, 'Runtime Error', details)
+        self.context = context
+
+    def set_context(self, context=None):
+        return self
+
+    def as_string(self):
+        result = self.generate_traceback()
+        result += f'{self.error_name}: {self.details}'
+        result += '\n\n' + \
+            string_with_arrows(self.pos_start.ftxt,
+                               self.pos_start, self.pos_end)
+        return result
+
+    def generate_traceback(self):
+        result = ''
+        pos = self.pos_start
+        ctx = self.context
+
+        while ctx:
+            result = f'  File {pos.fn}, line {str(pos.ln + 1)}, in {ctx.display_name}\n' + result
+            pos = ctx.parent_entry_pos
+            ctx = ctx.parent
+
+        return 'Traceback (most recent call last):\n' + result
+
+    def copy(self):
+        return __class__(self.pos_start, self.pos_end, self.details, self.context)
+        
+class PackageRTError(Error):
+    def __init__(self, pos_start, pos_end, details, context):
+        super().__init__(pos_start, pos_end, 'Package Error', details)
         self.context = context
 
     def set_context(self, context=None):
@@ -2606,7 +2632,6 @@ class BuiltInFunction(BaseFunction):
 
     @args(['value'])
     def execute_system(self, exec_ctx):
-        import subprocess
         command = str(exec_ctx.symbol_table.get('value'))  
         try:
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
@@ -3525,15 +3550,23 @@ class Interpreter:
         filename = res.register(self.visit(node.string_node, context))
         formatted = str(filename)
         code = None
+        
         if "/" in formatted:
+            
             if formatted.endswith("/") == False:
+                
                 formatted = formatted.split("/")
                 lastarg = formatted[len(formatted)-1]
+                
                 if "." not in lastarg:
                     filename.value = filename.value + ".tr"
+            else:
+                lastarg = formatted.removesuffix("/")
         else:
             if "." not in formatted:
+                lastarg = str(filename.value)
                 filename.value = filename.value + ".tr"
+                
                 
 
         for path in import_paths:
@@ -3556,11 +3589,17 @@ class Interpreter:
                 continue
 
         if code is None:
-            return res.failure(RTError(
-                node.string_node.pos_start.copy(), node.string_node.pos_end.copy(),
-                f"Can't find file '{filepath}' in '{usePathReference}'. Please add the directory your file is into that file",
-                context
-            ))
+            url = ("https://raw.githubusercontent.com/cmspeedrunner/axon/main/"+str(filename))
+            response = subprocess.run(["curl", "-Is", url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+            if not response:
+                return res.failure(RTError( node.string_node.pos_start.copy(), node.string_node.pos_end.copy(), f"Can't find file '{filepath}' in '{usePathReference}'. Please add the directory your file is into that file", context))
+            else:
+                print(f"\033[31mRuntime Error: Failed to finish executing script\nPackage Source Error: Failed to source known Axon package\n")
+                print(f"\033[31mProblem: \033[96m{lastarg}\033[31m is not installed.\033[0m")
+                print(f"\033[32mSolution: \033[36m'axon install {lastarg}'\033[32m\033[0m")
+                exit()
+                
+                
 
         _, error = run(filename, code, context, node.pos_start.copy())
         if error:
@@ -3777,7 +3816,7 @@ global_symbol_table = SymbolTable()
 global_symbol_table.set("null", Number.null)
 global_symbol_table.set("false", Number.false)
 global_symbol_table.set("true", Number.true)
-global_symbol_table.set("cwd", String.cwd)
+global_symbol_table.set("_cwd", String.cwd)
 global_symbol_table.set("_V", String._V)
 
 global_symbol_table.set("argv", make_argv())

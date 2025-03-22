@@ -4,15 +4,18 @@ use "string"
 use "tr"
 fn cyan(text) -> "\u001B[36m" + text + "\u001B[0m"
 fn green(text) -> "\u001B[32m" + text + "\u001B[0m"
+fn red(text) -> "\u001B[31m" + text + "\u001B[0m"
+fn purple(text) -> "\u001B[35m" + text + "\u001B[0m"
 
 system("")
 
-pathDest = "std"
-path = cwd+pathDest
+pathDest = "/std"
+path = _cwd+pathDest
 packageList = []
 vers = _V
 packageRepo = "https://github.com/cmspeedrunner/axon/tree/main"
 rawAccessRepo = "https://raw.githubusercontent.com/cmspeedrunner/axon/main/"
+
 
 
 fn diffuseIn(url, name, currentfile){
@@ -38,8 +41,9 @@ else
 if command == "-help"{
     println(green("Axon Package Manager"))
     println("-------------------------\nValid Commands:")
-    println("   axon install <package>   -> "+cyan("Installs <package>"))
     println("   axon -help               -> "+cyan("Shows command list"))
+    println("   axon install <package>   -> "+cyan("Installs <package>"))
+    println("   axon uninstall <package> -> "+cyan("Uninstalls <package>"))
     println("   axon update <package>    -> "+cyan("If you have <package> it updates it, if you don't, it installs it"))
     println("   axon -v                  -> "+cyan("Shows Tryptamine version"))
     println("   axon -latest             -> "+cyan("Shows Latest Tryptamine version"))
@@ -67,18 +71,53 @@ elif command == "install" or command == "update"
     elif len(argv) == 3
         packagename = argv[2]
         location = rawAccessRepo+packagename+"/.files"
-       
-        system("cd std && mkdir "+packagename)
-        bindReceptor(location, packagename)
+        response = system("curl "+location)
+        if startswith(response, "404"){
+            println(red("Package Error"))
+            println(red("Package ")+cyan(packagename)+red(" could not be found"))
+            println(red("Check ")+green(packageRepo)+red("\nIf there isn't a ")+cyan(packagename)+red(" directory, the package doesn't exist or hasn't been pushed yet."))
+        else
+            dirExists = succeed("dir std\\"+packagename)
+            if dirExists == 0{
+                println(green("Installing package ")+cyan("'"+packagename+"'")+green(" in ")+cyan("std\\"+packagename))
+                system("cd std && mkdir "+packagename)
+                bindReceptor(location, packagename)
+                println(cyan(packagename)+green(" installed successfully"))
+
+            elif command != "update"
+                println(green("Package ")+cyan(packagename)+green(" is already installed. Would you like to update it?"))
+                update = lower(clean(read(cyan("(")+green("y")+cyan("/")+red("n")+cyan(")\n->"))))
+                if update == "y"{
+                    system("cd std/"+packagename)
+                    bindReceptor(location, packagename)
+                }
+                
+            else
+                system("cd std && mkdir "+packagename)
+                bindReceptor(location, packagename)
+            }
         
     }
+}
 
+elif command == "uninstall"
+    if len(argv) == 2{
+            println("Uninstall usage:")
+            println("    axon uninstall <package>")
+            
+        elif len(argv) == 3
+            packagename = argv[2]
+            dirExists = succeed("dir std\\"+packagename)
+            if dirExists{
+                println(purple("Removing package ")+cyan("'"+packagename+"'")+purple(" from ")+cyan("std\\"+packagename))
+                system("RMDIR std\\"+packagename+" /S /Q")
+                println(cyan(packagename)+purple(" uninstalled successfully"))
+            else
+                println(red("Package Error"))
+                println(red("Package ")+cyan(packagename)+red(" is not installed or couldn't be found under std\\")+cyan(packagename))
+        }
 
 elif command == "-latest"
     println(latestV())
-
-
-
-
 }
-
+}
