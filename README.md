@@ -6,3 +6,5 @@ To start, clone this repo using git and cd into it. <br>
 At this point make sure you have g++ or any compiler for c++. <br>
 `tryp.cpp` and `axon.cpp` are just routing files, these mean you can just run <br>
 `tryp` followed by your file to run, instead of invoking python each time. <br>
+
+That being said, compile both files. To start the shell, just run `tryp`
