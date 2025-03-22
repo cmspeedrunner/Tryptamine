@@ -2,7 +2,9 @@ use "http"
 use "system"
 use "string"
 use "tr"
-use "colors"
+fn cyan(text) -> "\u001B[36m" + text + "\u001B[0m"
+fn green(text) -> "\u001B[32m" + text + "\u001B[0m"
+
 system("")
 
 pathDest = "std"
