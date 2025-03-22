@@ -13,22 +13,7 @@ To start the shell, just type:<br>
 
 To run a specific tryptamine file, you need to write one first.
 
-
 # Tutorial
 Tryptamine
 
 
-
-# Axon
-## Introduction
-Axon is the package manager for Tryptamine, it is written all in tryptamine, it is under `src/axon.tr` <br>
-Axon finds packages at https://github.com/cmspeedrunner/axon. You can create your own package by following the readme tutorial at the axon repo. <br>
-## Usage
-To install a package, given you have compiled the Axon.cpp file, simply type <br>
-`axon install` followed by a package. Just for a test, you can do<br>
-`axon install argparser` <br>
-Which is a library I made for testing Axon. Following this you should see a folder in your `std` directory called `argparser` with the `main.tr` file under it. To include this in a project do: <br>
-```
-use "argparser/main"
-```
-*(if std isn't included in your path, this would be different)*
