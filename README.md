@@ -168,41 +168,44 @@ else
 ```
 ## Inbuilts
 Here is a comprehensive outline of all the inbuilt functions and values in Tryptamine: <br>
-`null` -> is null<br>
-`false` -> is false<br>
-`true` -> is true<br>
-`_cwd` -> is the current working directory<br>
-`_V` -> is the Tryptamine version<br>
-`argv` -> is a list of arguments<br>
-`println(a)` -> prints a with newline<br>
-`exit()` -> exits program<br>
-`system(a)` -> runs a as a subprocess<br>
-`print(a)` -> prints a with no newline<br>
-`date()` -> is the current date<br>
-`time()` -> is the current time<br>
-`read(a=null)` -> reads input from user, a is an option prompt to display<br>
-`clear()` -> clears screen<br>
-`isNum(a)` -> returns true or false if a is an int or float<br>
-`isStr(a)` -> returns true or false if a is a string<br>
-`isList(a)` -> returns true or false if a is a list<br>
-`isFn(a)` -> returns true or false if a is a function<br>
-`str(a)` -> returns a as a string<br>
-`int(a)` -> returns a as an int<br>
-`flt(a)` -> returns a as a float<br>
-`list(a)` -> returns a as a list<br>
-`split(a, b)` -> splits string a by occurances of b<br>
-`stack(a)` -> splits string a into lines<br>
-`clean(a, b=" ")` -> removes b from either side of a, defaults to whitespace<br>
-`swapOut(a, b, c)` -> checks a for occurances of b, swapping all for c<br>
-`rmPrefix(a, b)` -> removes prefix b from a<br>
-`rmSuffix(a, b)` -> removes suffix b from a<br>
-`append(a, b)` -> appends b to list a<br>
-`pop(a, b)` -> pops value at index b from a<br>
-`extend(a, b)` -> extends list a by list b<br>
-`len(a)` -> gets length of list a<br>
-`run(a)` -> runs a as a tryptamine file<br>
-`openFile(a, b)` -> opens file a in mode b<br>
-`readFile(a, b)` -> reads file a contents into bytelength value b<br>
-`writeFile(a, b)` -> writes string b to file object a<br>
-`closeFile(a)` -> closes file a<br>
-`wait(a)` -> waits for number a as seconds<br>
+| Identifier      | Action                                | Example usage                                       |Example output|
+|-----------------|---------------------------------------|-----------------------------------------------------|------|
+| `null`          | is null                               | null                                                ||
+| `false`         | is false                              | false                                               ||
+| `true`          | is true                               | true                                                ||
+| `_cwd`          | is the current working directory     | println(_cwd)                               |C:/Path/To/Tryptamine|
+| `_V`            | is the Tryptamine version            | println(_V)                                   |"v0.1.2"|
+| `argv`          | is a list of arguments               | println(argv)              |["main.tr"], ["hello"]|
+| `println(a)`    | prints a with newline                | Prints `a` with a newline                           |
+| `exit()`        | exits program                        | Exits the program                                   |
+| `system(a)`     | runs a as a subprocess               | Runs the subprocess defined by `a`                  |
+| `print(a)`      | prints a with no newline             | Prints `a` without a newline                        |
+| `date()`        | is the current date                  | Current date                                       |
+| `time()`        | is the current time                  | Current time                                       |
+| `read(a=null)`  | reads input from user                | Reads user input with optional prompt `a`           |
+| `clear()`       | clears screen                        | Clears the screen                                   |
+| `isNum(a)`      | returns true or false if a is a num  | True if `a` is a number, false otherwise           |
+| `isStr(a)`      | returns true or false if a is a string| True if `a` is a string, false otherwise           |
+| `isList(a)`     | returns true or false if a is a list | True if `a` is a list, false otherwise             |
+| `isFn(a)`       | returns true or false if a is a function| True if `a` is a function, false otherwise         |
+| `str(a)`        | returns a as a string                | Converts `a` to a string                            |
+| `int(a)`        | returns a as an int                  | Converts `a` to an int                              |
+| `flt(a)`        | returns a as a float                 | Converts `a` to a float                             |
+| `list(a)`       | returns a as a list                  | Converts `a` to a list                              |
+| `split(a, b)`   | splits string `a` by occurrences of `b`| Returns list of substrings from `a` split by `b`    |
+| `stack(a)`      | splits string `a` into lines         | Returns list of lines from string `a`               |
+| `clean(a, b=" ")` | removes `b` from either side of `a`  | Returns `a` with `b` removed from both sides        |
+| `swapOut(a, b, c)`| checks `a` for occurrences of `b`, swapping all for `c`| Returns `a` with all occurrences of `b` replaced by `c` |
+| `rmPrefix(a, b)` | removes prefix `b` from `a`          | Returns `a` without prefix `b`                      |
+| `rmSuffix(a, b)` | removes suffix `b` from `a`          | Returns `a` without suffix `b`                      |
+| `append(a, b)`  | appends `b` to list `a`              | Returns `a` with `b` appended to it                 |
+| `pop(a, b)`     | pops value at index `b` from `a`      | Returns value at index `b` from list `a`            |
+| `extend(a, b)`  | extends list `a` by list `b`         | Returns `a` extended by `b`                         |
+| `len(a)`        | gets length of list `a`              | Returns the length of list `a`                      |
+| `run(a)`        | runs `a` as a tryptamine file        | Runs the Tryptamine file `a`                        |
+| `openFile(a, b)`| opens file `a` in mode `b`           | Opens file `a` with mode `b`                        |
+| `readFile(a, b)`| reads file `a` contents into bytelength value `b`| Reads `b` bytes from file `a`                      |
+| `writeFile(a, b)`| writes string `b` to file object `a` | Writes string `b` to file `a`                       |
+| `closeFile(a)`  | closes file `a`                      | Closes file `a`                                     |
+| `wait(a)`       | waits for `a` seconds                | Pauses the program for `a` seconds                  |
+
