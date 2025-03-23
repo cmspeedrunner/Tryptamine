@@ -166,3 +166,43 @@ else
     println("You do not!")
 }
 ```
+## Inbuilts
+Here is a comprehensive outline of all the inbuilt functions and values in Tryptamine: <br>
+`null` -> is null<br>
+`false` -> is false<br>
+`true` -> is true<br>
+`_cwd` -> is the current working directory<br>
+`_V` -> is the Tryptamine version<br>
+`argv` -> is a list of arguments<br>
+`println(a)` -> prints a with newline<br>
+`exit()` -> exits program<br>
+`system(a)` -> runs a as a subprocess<br>
+`print(a)` -> prints a with no newline<br>
+`date()` -> is the current date<br>
+`time()` -> is the current time<br>
+`read(a=null)` -> reads input from user, a is an option prompt to display<br>
+`clear()` -> clears screen<br>
+`isNum(a)` -> returns true or false if a is an int or float<br>
+`isStr(a)` -> returns true or false if a is a string<br>
+`isList(a)` -> returns true or false if a is a list<br>
+`isFn(a)` -> returns true or false if a is a function<br>
+`str(a)` -> returns a as a string<br>
+`int(a)` -> returns a as an int<br>
+`flt(a)` -> returns a as a float<br>
+`list(a)` -> returns a as a list<br>
+`split(a, b)` -> splits string a by occurances of b<br>
+`stack(a)` -> splits string a into lines<br>
+`clean(a, b=" ")` -> removes b from either side of a, defaults to whitespace<br>
+`swapOut(a, b, c)` -> checks a for occurances of b, swapping all for c<br>
+`rmPrefix(a, b)` -> removes prefix b from a<br>
+`rmSuffix(a, b)` -> removes suffix b from a<br>
+`append(a, b)` -> appends b to list a<br>
+`pop(a, b)` -> pops value at index b from a<br>
+`extend(a, b)` -> extends list a by list b<br>
+`len(a)` -> gets length of list a<br>
+`run(a)` -> runs a as a tryptamine file<br>
+`openFile(a, b)` -> opens file a in mode b<br>
+`readFile(a, b)` -> reads file a contents into bytelength value b<br>
+`writeFile(a, b)` -> writes string b to file object a<br>
+`closeFile(a)` -> closes file a<br>
+`wait(a)` -> waits for number a as seconds<br>
