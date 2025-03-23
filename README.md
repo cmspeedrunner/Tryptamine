@@ -14,6 +14,155 @@ To start the shell, just type:<br>
 To run a specific tryptamine file, you need to write one first.
 
 # Tutorial
-Tryptamine
+Lets just start with a hello world example, made fancy:
+```rust
+fn hello(){
+  println("Hello, World!")
+}
+hello()
+```
+Pretty simple stuff, defining functions is done with `fn` and to print, simply use `println` or `print`. <br>
+`println` -> Outputs value with a newline <br>
+`print` -> Outputs value with no newline <br>
 
+## Conditionals
+Conditionals and loops are a bit different in Tryptamine. For example: 
+```rust
+number = int(read("Enter a number:"))
+if number > 10{
+  println("Number is bigger then 10")
+}
+```
+This is simple. It sets the variable number to be an integer, read from the user. After this, it checks if the number is bigger then 10. If so, print something! <br>
+*However* if we wanted to add an elif and else statement, it would look like this: 
+```rust
+number = int(read("Enter a number:"))
+if number > 10{
+  println("Number is bigger then 10")
+elif number >= 0
+  println("Number is between 0-10")
+else
+  println("Number is negative")
+}
+```
+elif and else dont have opening and closing brackets in Tryptamine. <br>
+An if statement must contain all conditionals that apply to it, for example this would produce an error in Tryptamine: 
+```rust
+name = read("Enter name:")
+if name == "john" {
+    println("Hi john, you're S tier")
+} elif name == "mike" {
+    println("Mike, I guess you're A tier")
+} else {
+    println("I don't know you")
+}
+```
+`elif` and `else` do not need opening and closing brackets, only if does. <br>
+This is how the code above will look in Tryptamine: <br>
+```rust
+name = read("Enter name:")
+if name == "john"{
+    println("Hi john, you're S tier")
+elif name == "mike" 
+    println("Mike, I guess you're A tier")
+else
+    println("I don't know you")
+}
+```
+This is a bit disorienting for programmers, but is a unique and impactful addition of simplicity to Tryptamine, I completely understand any critique of this particular design choice, however I will say this becomes enjoyable and saves time when embedding loads of conditionals. <br>
+*See `examples/` for more comprehensive examples.* <br>
 
+## For and While loops
+For loops are similar to python and other dynamic languages, here is a simple 1-100 program in Tryptamine using for and while loops: <br>
+```rust
+for i = 0 to 100{
+  println(i) # Outputs numbers 0 - 99
+}
+i = 0
+while i < 100{
+  println(i) # Does the same as the above program
+  i = i+1
+}
+```
+You can also iterate over strings using `in`: <br>
+*As of v0.1.2 you can iterate over strings only, sorry, I will update this soon*
+```rust
+string = "Hello, World!"
+for char in string{
+  print(char) # Prints each character with no newline, basically printing the string
+}
+```
+True and false work like this: <br>
+```rust
+string = "Hello!"
+fn isGreeting(string){
+  if string == "Hello!"{
+    return true
+  else
+    return false
+  }
+}
+
+if isGreeting(string){
+  println("It is a greeting!")
+elif not isGreeting(string)
+  println("Not a greeting!")
+}
+```
+## Importing
+Importing is done with `use` and the path is configured by default to be `std/`. <br>
+***The majority of Tryptamine's power is from the standard library, make sure you have it*** <br>
+For example, if we wanted to import the string library and use the `startswith` and `lower` function, it would look like this: <br>
+```rust
+use "string"
+msg = "HeLLo there!"
+msg = lower(msg) # makes all uppercase values lowercase
+if startswith(msg, "hello"){
+  println("Message is a greeting!")
+else
+  println("Message is not a greeting!")
+}
+```
+This is just one example, the standard library is extensive and is covered specifically on the website. <br>
+
+## Functions
+Functions are defined like so:
+```rust
+fn FnName(p1, p2){
+   return p1 + p2
+}
+```
+But can also be done like this: 
+```rust
+fn FnName(p1, p2) -> p1+p2
+```
+You can have option parameters in a function by setting the value in the function definition:
+```rust
+fn add(num1, num2=false) -> num1+num2
+println(add(5, 10)) 
+println(add(5)) 
+```
+This program would output 15 and 5
+
+## System 
+The `system` function is inbuilt, being the sole inbuilt function to support the Axon package manager, the http standard library and the system standard library <br>
+`system` runs a command as a subprocess, returning the value. For example:
+```rust
+hello = system("echo hello") # hello = "hello"
+```
+This program wouldn't output anything, it just stores the result of the system command in the `hello` variable. <br>
+This is a quick example showing how this can be used to check the existence of a directory: <br>
+```rust
+fn succeed(command){
+    status = (system(command+" >nul && echo 1 || echo 0"))
+    return int(status)
+}
+
+command = "std\\"
+
+if succeed(){
+    println("You have the std library!")
+else
+    println("You do not!")
+}
+```
