@@ -209,3 +209,29 @@ Here is a comprehensive outline of all the inbuilt functions and values in Trypt
 | `closeFile(a)`  | closes file `a`                      | Closes file `a`                                     |
 | `wait(a)`       | waits for `a` seconds                | Pauses the program for `a` seconds                  |
 
+# Axon
+Axon is the package manager for Tryptamine and is written in 100% tryp code. <br>
+If you have compiled `axon.cpp`, simply run: <br>
+`axon -help` <br>
+This will display the following: <br>
+```
+Axon Package Manager
+-------------------------
+Valid Commands:
+   axon -help               -> Shows command list
+   axon install <package>   -> Installs <package>
+   axon uninstall <package> -> Uninstalls <package>
+   axon update <package>    -> If you have <package> it updates it, if you don't, it installs it
+   axon -v                  -> Shows Tryptamine version
+   axon -latest             -> Shows Latest Tryptamine version
+   axon -path               -> Shows the destination path for packages
+   axon -src                -> Shows the github repo packages are sourced from
+```
+Currently, there is only one package. You can see the full package contribution tutorial at https://github.com/cmspeedrunner/axon <br>
+`vibrant` is the package for colors, and can be installed using `axon install vibrant`<br>
+This should install it under your `std/` directory. If you have it in your path config file, you can include it using this: <br>
+```
+use "vibrant/vibrant"
+println(red("This is red text!"))
+println(yellow("Yellow text!"))
+```
