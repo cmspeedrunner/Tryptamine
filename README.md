@@ -176,13 +176,13 @@ Here is a comprehensive outline of all the inbuilt functions and values in Trypt
 | `_cwd`          | is the current working directory     | println(_cwd)                               |C:/Path/To/Tryptamine|
 | `_V`            | is the Tryptamine version            | println(_V)                                   |"v0.1.2"|
 | `argv`          | is a list of arguments               | println(argv)              |["main.tr"], ["hello"]|
-| `println(a)`    | prints a with newline                | Prints `a` with a newline                           |
+| `println(a)`    | prints a with newline                | Prints `a` with a newline                           |Hello, World!<br>0|
 | `exit()`        | exits program                        | Exits the program                                   |
 | `system(a)`     | runs a as a subprocess               | Runs the subprocess defined by `a`                  |
-| `print(a)`      | prints a with no newline             | Prints `a` without a newline                        |
-| `date()`        | is the current date                  | Current date                                       |
+| `print(a)`      | prints a with no newline             | Prints `a` without a newline                        |Hello, World!0|
+| `date()`        | is the current date                  | Current date                                       |15:52:47.250555|
 | `time()`        | is the current time                  | Current time                                       |
-| `read(a=null)`  | reads input from user                | Reads user input with optional prompt `a`           |
+| `read(a=null)`  | reads input from user                | Reads user input with optional prompt `a`           |Enter your name>|
 | `clear()`       | clears screen                        | Clears the screen                                   |
 | `isNum(a)`      | returns true or false if a is a num  | True if `a` is a number, false otherwise           |
 | `isStr(a)`      | returns true or false if a is a string| True if `a` is a string, false otherwise           |
